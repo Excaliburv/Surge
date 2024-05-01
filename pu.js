@@ -1,8 +1,8 @@
-const url = $request.url;
-const header = $request.headers;
-const headopt = header["Operation-Type"] || header["operation-type"];
-const ua = header["User-Agent"] || header["user-agent"];
-const body = $response.body;
+let obj = JSON.parse($response.body);
 
-console.log(body);
-$done()
+delete obj.content.place_ad_3;
+delete obj.content.place_ad_2;
+delete obj.content.articles;
+let modifiedBody = JSON.stringify(obj);
+console.log(modifiedBody);
+$done({body: modifiedBody});
