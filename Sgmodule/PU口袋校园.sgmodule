@@ -1,0 +1,18 @@
+#!name=PU口袋校园
+#!desc=去除开屏广告
+[URL Rewrite]
+#开屏广告
+^https:\/\/sdk\.1rtb\.net\/sdk\/req_ad\?sdk_version=\d\.\d\.\d\.\d&device_os=iOS&accept_ad_type=\d&app_id=\d+&pid=\d+&sdk_version_code=\d+ - reject
+
+#更新弹窗
+^https:\/\/pocketuni\.net\/\?app=api&mod=Sitelist&act=version - reject
+
+#滚动广告
+^https:\/\/pocketuni\.net\/\?app=api&mod=Message&act=adList - reject
+
+[Script]
+#去除文章推广
+PU口袋校园 = type=http-response,pattern=^https:\/\/pocketuni\.net\/api\/article\/index,requires-body=1,script-path=https://github.com/Excaliburv/Surge/raw/main/Script/pu.js,max-size=0,binary-body-mode=0,debug=0,script-update-interval=0
+
+[MITM]
+hostname = %APPEND% sdk.1rtb.net,pocketuni.net
