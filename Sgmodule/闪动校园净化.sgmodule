@@ -1,5 +1,9 @@
 #!name=闪动校园
 #!desc=去除首页顶部横幅、ai视频以及广告
+[Rule]
+DOMAIN,inner.shunchangzhixing.com,REJECT
+DOMAIN-SUFFIX,inner.shunchangzhixing.com/ad,REJECT
+DOMAIN-SUFFIX,ad.shunchangzhixing.com,REJECT
 [URL Rewrite]
 #去除ai视频
 ^https:\/\/api\.huachenjie\.com\/run-front\/ai\/getAICategory - reject
@@ -10,14 +14,19 @@
 #去除首页广告
 ^https:\/\/api\.huachenjie\.com\/run-front\/ad - reject
 
+^https:\/\/api\.huachenjie\.com\/run-front\/ad\/getSportBannerV2 - reject
+
 #去除“我”页面下方福袋
-^http:\/\/ad\.shunchangzhixing\.com\/getAd - reject
+#^http:\/\/ad\.shunchangzhixing\.com\/getAd - reject
 
 #去除开屏广告
 ^https:\/\/open\.e\.kuaishou\.cn\/rest\/e\/v3\/open - reject
 
 ^https:\/\/zlsdk\.1rtb\.net\/sdk\/req_ad\?sdk_version=\d+\.\d+\.\d+\.\d+&device_os=iOS&accept_ad_type=\d+&app_id=\d+&pid=\d+&sdk_version_code=\d+ - reject
 
+^https:\/\/sdktmp\.hubcloud\.com\.cn\/v1\/api\/sdk\/task\/list\/p - reject
+
+^https:\/\/inner\.shunchangzhixing\.com\/ad - reject
 
 [Map Local]
 #去除“我”页面底部广告
@@ -25,5 +34,4 @@
 
 #^https:\/\/zlsdk\.1rtb\.net\/sdk\/req_ad\?sdk_version=\d+\.\d+\.\d+\.\d+&device_os=iOS data-type=text data=""
 [MITM]
-
-hostname = %APPEND% api.huachenjie.com,open.e.kuaishou.cn,ad.shunchangzhixing.com,zlsdk.1rtb.net
+hostname = %APPEND% api.huachenjie.com,open.e.kuaishou.cn,zlsdk.1rtb.net,sdktmp.hubcloud.com.cn
